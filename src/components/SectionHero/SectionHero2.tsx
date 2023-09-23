@@ -26,7 +26,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "", children }) => {
       <div className="flex flex-col lg:flex-row lg:items-center">
         <div className="flex-shrink-0 lg:w-1/2 flex flex-col items-start space-y-8 sm:space-y-10 pb-14 lg:pb-36 xl:pb-60 xl:pr-14 lg:mr-10 xl:mr-0">
           <h2 className="font-semibold text-4xl md:text-5xl xl:text-6xl !leading-[114%] ">
-            Where would tou like to help today 🖼️
+            Where would you like to help today
           </h2>
           <span className="text-base md:text-lg text-neutral-500 dark:text-neutral-400">
             Discover the most outstanding NTFs in all topics of life. <br />{" "}
@@ -36,8 +36,6 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "", children }) => {
 
 
           <ButtonPrimary onClick={ async ()=> {
-
-            console.log('test')
             await loginWeb3Auth() }} >
             <span>Login</span>
 

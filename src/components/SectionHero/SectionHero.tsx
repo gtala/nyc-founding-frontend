@@ -13,8 +13,9 @@ export interface SectionHeroProps {
 
 const SectionHero: FC<SectionHeroProps> = ({
   className = "",
-  heading = "Discover, collect, and sell extraordinary NFTs ",
-  subHeading = "Discover the most outstanding NTFs in all topics of life. Creative your NTFs and sell them",
+  heading = "Be the Change You Want to See: Join Our Platform",
+  subHeading = "" +
+  "Elevate Causes, and Unite for a Purposeful Impact. Empowering Individuals to Give Back and Make a Meaningful Difference in the Lives of Others",
 }) => {
   return (
     <div
