@@ -5,6 +5,7 @@ import "rc-slider/assets/index.css";
 import Footer from "@/shared/Footer/Footer";
 import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
 import SiteHeader from "@/app/SiteHeader";
+import {AccountAbstractionProvider} from "@/store/accountAbstractionContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={poppins.className}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <SiteHeader />
-        {children}
+        <AccountAbstractionProvider> {children}</AccountAbstractionProvider>
         <Footer />
         <MusicPlayer />
       </body>

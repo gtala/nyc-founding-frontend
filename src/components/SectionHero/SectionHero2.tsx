@@ -1,9 +1,10 @@
+'use client'
 import React, { FC } from "react";
 import imagePng from "@/images/hero-right-3.png";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-// import HeroSearchForm from "@/components/HeroSearchForm/HeroSearchForm";
 import Image from "next/image";
 import HeroSearchForm from "../HeroSearchForm/HeroSearchForm";
+import {useAccountAbstraction} from "@/store/accountAbstractionContext";
 
 export interface SectionHero2Props {
   children?: React.ReactNode;
@@ -11,6 +12,13 @@ export interface SectionHero2Props {
 }
 
 const SectionHero2: FC<SectionHero2Props> = ({ className = "", children }) => {
+  const {
+    safeSelected, chainId,
+    isAuthenticated,
+    loginWeb3Auth,
+    safes
+  } = useAccountAbstraction()
+
   return (
     <div
       className={`nc-SectionHero2 flex flex-col-reverse lg:flex-col relative ${className}`}
@@ -24,27 +32,23 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "", children }) => {
             Discover the most outstanding NTFs in all topics of life. <br />{" "}
             Creative your NTFs and sell them
           </span>
-          <ButtonPrimary href="/search">
-            <span>Start your search</span>
-            <span>
-              <svg className="w-5 h-5 ml-2.5" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M22 22L20 20"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
+
+
+
+          <ButtonPrimary onClick={ async ()=> {
+
+            console.log('test')
+            await loginWeb3Auth() }} >
+            <span>Login</span>
+
           </ButtonPrimary>
+          <div>
+            <span className="text-base md:text-lg text-neutral-500 dark:text-neutral-400">Safe Account</span>
+            <span className="text-base md:text-lg text-neutral-500 dark:text-neutral-400">
+              Your Safe account has been created
+            </span>
+            {safeSelected}
+          </div>
         </div>
         <div className="flex-grow">
           <Image className="w-full" src={imagePng} alt="hero" />

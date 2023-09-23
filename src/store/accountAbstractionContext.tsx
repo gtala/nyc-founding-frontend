@@ -86,8 +86,9 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
   const [web3AuthModalPack, setWeb3AuthModalPack] = useState<Web3AuthModalPack>()
 
   // auth-kit implementation
-  const loginWeb3Auth = useCallback(async () => {
+  const loginWeb3Auth = async () => {
     try {
+
       const options = getWeb3AuthOptions(chain)
 
       const modalConfig = getModalConfig()
@@ -118,7 +119,7 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
     } catch (error) {
       console.log('error: ', error)
     }
-  }, [chain])
+  }
 
   const logoutWeb3Auth = () => {
     web3AuthModalPack?.signOut()
