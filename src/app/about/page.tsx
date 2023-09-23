@@ -1,3 +1,4 @@
+'use client'
 import rightImg from "@/images/hero-right1.png";
 import React, { FC } from "react";
 import SectionFounder from "./SectionFounder";
@@ -5,9 +6,14 @@ import SectionStatistic from "./SectionStatistic";
 import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";
 import SectionHero from "./SectionHero";
 import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
+import {useAccountAbstraction} from "@/store/accountAbstractionContext";
 
 const PageAbout = ({}) => {
-  return (
+
+    const { loginWeb3Auth, isAuthenticated, safeSelected, chainId } = useAccountAbstraction()
+
+
+    return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
       {/* ======== BG GLASS ======== */}
       <BgGlassmorphism />
