@@ -14,28 +14,20 @@ import NcImage from "@/shared/NcImage/NcImage";
 
 const plans = [
   {
-    name: "Crypto Legend - Professor",
+    name: "Water ",
     featuredImage: nftsImgs[0],
   },
   {
-    name: "Crypto Legend - Professor",
+    name: "Trees",
     featuredImage: nftsImgs[1],
   },
   {
-    name: "Crypto Legend - Professor",
+    name: "Animals",
     featuredImage: nftsImgs[2],
   },
   {
-    name: "Crypto Legend - Professor",
+    name: "Social",
     featuredImage: nftsImgs[3],
-  },
-  {
-    name: "Crypto Legend - Professor",
-    featuredImage: nftsImgs[4],
-  },
-  {
-    name: "Crypto Legend - Professor",
-    featuredImage: nftsImgs[5],
   },
 ];
 
@@ -144,9 +136,9 @@ const PageUploadItem = ({}) => {
             <div className="w-full border-b-2 border-neutral-100 dark:border-neutral-700"></div>
 
             <div>
-              <Label>Water harity</Label>
+              <Label>Campaign Category</Label>
               <div className="text-neutral-500 dark:text-neutral-400 text-sm">
-                Choose an exiting collection or create a new one
+                Choose an exiting category or create a new one
               </div>
               <RadioGroup value={selected} onChange={setSelected}>
                 <RadioGroup.Label className="sr-only">
@@ -211,21 +203,6 @@ const PageUploadItem = ({}) => {
               </RadioGroup>
             </div>
 
-            {/* ---- */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-2.5">
-              {/* ---- */}
-              <FormItem label="Royalties">
-                <Input placeholder="20%" />
-              </FormItem>
-              {/* ---- */}
-              <FormItem label="Size">
-                <Input placeholder="165Mb" />
-              </FormItem>
-              {/* ---- */}
-              <FormItem label="Propertie">
-                <Input placeholder="Propertie" />
-              </FormItem>
-            </div>
 
             {/* ---- */}
             <MySwitch enabled />
@@ -246,10 +223,10 @@ const PageUploadItem = ({}) => {
             {/* ---- */}
             <div className="pt-2 flex flex-col sm:flex-row space-y-3 sm:space-y-0 space-x-0 sm:space-x-3 ">
               <ButtonPrimary href="/nft-detail" className="flex-1">
-                Upload item
+                Create Campaign
               </ButtonPrimary>
               <ButtonSecondary href="/nft-detail" className="flex-1">
-                Preview item
+                Preview Campaign
               </ButtonSecondary>
             </div>
           </div>

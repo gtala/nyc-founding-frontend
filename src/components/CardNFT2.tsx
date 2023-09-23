@@ -100,9 +100,7 @@ const CardNFT2: FC<CardNFT2Props> = ({ className = "", isLiked }) => {
 
             <div className="w-full mt-1.5 flex justify-between items-end ">
               <Prices labelTextClassName="bg-white dark:bg-neutral-900 " />
-              <span className="block text-neutral-500 dark:text-neutral-400 text-xs">
-                11 in stock
-              </span>
+
             </div>
           </div>
         </div>

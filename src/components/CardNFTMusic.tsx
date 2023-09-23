@@ -143,9 +143,7 @@ const CardNFTMusic: FC<CardNFTMusicProps> = ({
               labelText="Price"
               labelTextClassName="bg-white dark:bg-neutral-800 "
             />
-            <span className="block text-neutral-500 dark:text-neutral-400 text-xs">
-              99 in stock
-            </span>
+
           </div>
         </Link>
       </div>
