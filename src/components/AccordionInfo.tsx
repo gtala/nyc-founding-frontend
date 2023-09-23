@@ -7,10 +7,7 @@ import { FC } from "react";
 const DEMO_DATA = [
   {
     name: "Descriptions",
-    content: `Tattooed Kitty Gang (“TKG”) is a collection of 666 badass kitty
-    gangsters, with symbol of tattoos, living in the Proud Kitty Gang
-    (“PKG”) metaverse. Each TKG is an 1/1 ID as gangster member & all
-    the joint rights.`,
+    content: `Join our Plant a Tree Campaign and be a part of the green revolution! Let's come together to plant trees, breathe new life into our planet, and create a sustainable future for all. Your contribution, no matter how small, makes a world of difference. Join us in this eco-conscious journey and be a tree-planting hero today!`,
   },
   {
     name: "Details",

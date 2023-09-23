@@ -21,7 +21,7 @@ const Prices: FC<PricesProps> = ({
 
   useEffect(() => {
     if (!labelText) {
-      setLabelTextState(Math.random() > 0.4 ? "Price" : "Current Bid");
+      setLabelTextState("Current amount raised");
     }
   }, [labelText]);
 

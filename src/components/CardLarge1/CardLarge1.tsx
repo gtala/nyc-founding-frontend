@@ -79,7 +79,7 @@ const CardLarge1: FC<CardLarge1Props> = ({
           <div className="pt-6">
             <div className="flex flex-col sm:flex-row items-baseline p-6 border-2 border-green-500 rounded-xl relative">
               <span className="block absolute bottom-full translate-y-1.5 py-1 px-1.5 bg-white dark:bg-neutral-900 text-sm text-neutral-500 dark:text-neutral-400 ring ring-offset-0 ring-white dark:ring-neutral-900">
-                Current Bid
+                Current amount raised
               </span>
               <span className="text-3xl xl:text-4xl font-semibold text-green-500">
                 1.000 ETH

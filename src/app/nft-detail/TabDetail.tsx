@@ -8,7 +8,7 @@ import VerifyIcon from "@/components/VerifyIcon";
 import Link from "next/link";
 
 const TabDetail = () => {
-  const TABS = ["Bid History", "Provenance", "Owner"];
+  const TABS = ["Contribution History", "Provenance", "Owner"];
 
   const renderTabBidHistory = () => {
     return (
@@ -25,9 +25,7 @@ const TabDetail = () => {
               <span className="ml-4 text-neutral-500 dark:text-neutral-400 flex flex-col">
                 <span className="flex items-center text-sm">
                   <span className="">
-                    {index % 2 === 1
-                      ? "Offer of $700 by"
-                      : "Placed a bid $500 by"}
+                    {"Contributed with $500"}
                   </span>
 
                   <span className="font-medium text-neutral-900 dark:text-neutral-200 ml-1">
@@ -91,7 +89,7 @@ const TabDetail = () => {
 
   const renderTabItem = (item: string) => {
     switch (item) {
-      case "Bid History":
+      case "Contribution History":
         return renderTabBidHistory();
 
       case "Provenance":
