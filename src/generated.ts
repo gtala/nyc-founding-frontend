@@ -6,8 +6,6 @@ import {
   UseContractWriteConfig,
   usePrepareContractWrite,
   UsePrepareContractWriteConfig,
-  useContractEvent,
-  UseContractEventConfig,
 } from 'wagmi'
 import {
   ReadContractResult,
@@ -16,305 +14,214 @@ import {
 } from 'wagmi/actions'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// WagmiMintExample
+// Quadratic
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export const wagmiMintExampleABI = [
-  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'owner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'approved',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-    ],
-    name: 'Approval',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'owner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'operator',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
-    ],
-    name: 'ApprovalForAll',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_fromTokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: '_toTokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'BatchMetadataUpdate',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'MetadataUpdate',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'previousOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'newOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'OwnershipTransferred',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-    ],
-    name: 'Transfer',
-  },
+export const quadraticABI = [
   {
     stateMutability: 'nonpayable',
-    type: 'function',
+    type: 'constructor',
     inputs: [
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      {
+        name: '_compoundCometAddress',
+        internalType: 'address',
+        type: 'address',
+      },
+      { name: '_oneInchAddress', internalType: 'address', type: 'address' },
+      { name: '_wethAddress', internalType: 'address', type: 'address' },
     ],
-    name: 'approve',
-    outputs: [],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
-    name: 'balanceOf',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'getApproved',
+    inputs: [],
+    name: 'COMPOUND_COMET_ADDRESS',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [
-      { name: 'owner', internalType: 'address', type: 'address' },
-      { name: 'operator', internalType: 'address', type: 'address' },
-    ],
-    name: 'isApprovedForAll',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
     inputs: [],
-    name: 'name',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'owner',
+    name: 'ONEINCH_ADDRESS',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'ownerOf',
+    inputs: [],
+    name: 'WETH_ADDRESS',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [],
-    name: 'safeMint',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
+    stateMutability: 'payable',
     type: 'function',
     inputs: [
-      { name: 'from', internalType: 'address', type: 'address' },
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'projectIndex', internalType: 'uint256', type: 'uint256' },
     ],
-    name: 'safeTransferFrom',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address' },
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: 'data', internalType: 'bytes', type: 'bytes' },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: 'operator', internalType: 'address', type: 'address' },
-      { name: 'approved', internalType: 'bool', type: 'bool' },
-    ],
-    name: 'setApprovalForAll',
+    name: 'contribute',
     outputs: [],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
-    name: 'supportsInterface',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'contributorFlags',
+    outputs: [{ name: '', internalType: 'uint128', type: 'uint128' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_endRoundDate', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'createPodiumRound',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_name', internalType: 'string', type: 'string' }],
+    name: 'createProject',
+    outputs: [
+      { name: 'projectIndex', internalType: 'uint256', type: 'uint256' },
+    ],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_endProjectApplicationDate',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      { name: '_startRoundDate', internalType: 'uint256', type: 'uint256' },
+      { name: '_endRoundDate', internalType: 'uint256', type: 'uint256' },
+      {
+        name: '_platform',
+        internalType: 'enum QuadraticFunding.StakingPlatform',
+        type: 'uint8',
+      },
+    ],
+    name: 'createRound',
+    outputs: [],
   },
   {
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'symbol',
+    name: 'currentRound',
+    outputs: [
+      {
+        name: 'endProjectApplicationDate',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      { name: 'startRoundDate', internalType: 'uint256', type: 'uint256' },
+      { name: 'endRoundDate', internalType: 'uint256', type: 'uint256' },
+      { name: 'matchAmount', internalType: 'uint256', type: 'uint256' },
+      {
+        name: 'platform',
+        internalType: 'enum QuadraticFunding.StakingPlatform',
+        type: 'uint8',
+      },
+    ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'deleteRound',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'distributePodiumPrizes',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'projectIndex', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'podiumVote',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'podiumVotes',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'projectIPFSHashes',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'index', internalType: 'uint256', type: 'uint256' }],
-    name: 'tokenByIndex',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [
-      { name: 'owner', internalType: 'address', type: 'address' },
-      { name: 'index', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'tokenOfOwnerByIndex',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'tokenURI',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'totalSupply',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'projectNextIPFSHashIDs',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address' },
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'transferFrom',
+    inputs: [],
+    name: 'quadraticFunding',
     outputs: [],
   },
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
-    name: 'transferOwnership',
+    inputs: [{ name: 'contributor', internalType: 'address', type: 'address' }],
+    name: 'revokeWhitelistContributor',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_ipfsHashes', internalType: 'string[]', type: 'string[]' },
+    ],
+    name: 'uploadResults',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'contributor', internalType: 'address', type: 'address' }],
+    name: 'whitelistContributor',
     outputs: [],
   },
 ] as const
 
 /**
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export const wagmiMintExampleAddress = {
-  80001: '0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081',
+export const quadraticAddress = {
+  80001: '0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67',
 } as const
 
 /**
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export const wagmiMintExampleConfig = {
-  address: wagmiMintExampleAddress,
-  abi: wagmiMintExampleABI,
+export const quadraticConfig = {
+  address: quadraticAddress,
+  abi: quadraticABI,
 } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,1029 +229,893 @@ export const wagmiMintExampleConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleRead<
+export function useQuadraticRead<
   TFunctionName extends string,
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"balanceOf"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"COMPOUND_COMET_ADDRESS"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleBalanceOf<
-  TFunctionName extends 'balanceOf',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticCompoundCometAddress<
+  TFunctionName extends 'COMPOUND_COMET_ADDRESS',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'balanceOf',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'COMPOUND_COMET_ADDRESS',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"getApproved"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"ONEINCH_ADDRESS"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleGetApproved<
-  TFunctionName extends 'getApproved',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticOneinchAddress<
+  TFunctionName extends 'ONEINCH_ADDRESS',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'getApproved',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'ONEINCH_ADDRESS',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"isApprovedForAll"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"WETH_ADDRESS"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleIsApprovedForAll<
-  TFunctionName extends 'isApprovedForAll',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticWethAddress<
+  TFunctionName extends 'WETH_ADDRESS',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'isApprovedForAll',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'WETH_ADDRESS',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"name"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"contributorFlags"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleName<
-  TFunctionName extends 'name',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticContributorFlags<
+  TFunctionName extends 'contributorFlags',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'name',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'contributorFlags',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"owner"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"currentRound"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleOwner<
-  TFunctionName extends 'owner',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticCurrentRound<
+  TFunctionName extends 'currentRound',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'owner',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'currentRound',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"ownerOf"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"podiumVotes"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleOwnerOf<
-  TFunctionName extends 'ownerOf',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticPodiumVotes<
+  TFunctionName extends 'podiumVotes',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'ownerOf',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'podiumVotes',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"supportsInterface"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"projectIPFSHashes"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleSupportsInterface<
-  TFunctionName extends 'supportsInterface',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticProjectIpfsHashes<
+  TFunctionName extends 'projectIPFSHashes',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'supportsInterface',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'projectIPFSHashes',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"symbol"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"projectNextIPFSHashIDs"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleSymbol<
-  TFunctionName extends 'symbol',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
+export function useQuadraticProjectNextIpfsHashIDs<
+  TFunctionName extends 'projectNextIPFSHashIDs',
+  TSelectData = ReadContractResult<typeof quadraticABI, TFunctionName>,
 >(
   config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
+    UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'symbol',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'projectNextIPFSHashIDs',
     ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
+  } as UseContractReadConfig<typeof quadraticABI, TFunctionName, TSelectData>)
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"tokenByIndex"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleTokenByIndex<
-  TFunctionName extends 'tokenByIndex',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
-    'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'tokenByIndex',
-    ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"tokenOfOwnerByIndex"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleTokenOfOwnerByIndex<
-  TFunctionName extends 'tokenOfOwnerByIndex',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
-    'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'tokenOfOwnerByIndex',
-    ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"tokenURI"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleTokenUri<
-  TFunctionName extends 'tokenURI',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
-    'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'tokenURI',
-    ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"totalSupply"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleTotalSupply<
-  TFunctionName extends 'totalSupply',
-  TSelectData = ReadContractResult<typeof wagmiMintExampleABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<
-      typeof wagmiMintExampleABI,
-      TFunctionName,
-      TSelectData
-    >,
-    'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractRead({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'totalSupply',
-    ...config,
-  } as UseContractReadConfig<
-    typeof wagmiMintExampleABI,
-    TFunctionName,
-    TSelectData
-  >)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleWrite<
+export function useQuadraticWrite<
   TFunctionName extends string,
   TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
+  TChainId extends number = keyof typeof quadraticAddress,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
+          typeof quadraticABI,
           string
         >['request']['abi'],
         TFunctionName,
         TMode
       > & { address?: Address; chainId?: TChainId }
-    : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        TFunctionName,
-        TMode
-      > & {
+    : UseContractWriteConfig<typeof quadraticABI, TFunctionName, TMode> & {
         abi?: never
         address?: never
         chainId?: TChainId
       } = {} as any,
 ) {
-  return useContractWrite<typeof wagmiMintExampleABI, TFunctionName, TMode>({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
+  return useContractWrite<typeof quadraticABI, TFunctionName, TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"approve"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"contribute"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleApprove<
+export function useQuadraticContribute<
   TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
+  TChainId extends number = keyof typeof quadraticAddress,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'approve'
+          typeof quadraticABI,
+          'contribute'
         >['request']['abi'],
-        'approve',
+        'contribute',
         TMode
-      > & { address?: Address; chainId?: TChainId; functionName?: 'approve' }
-    : UseContractWriteConfig<typeof wagmiMintExampleABI, 'approve', TMode> & {
+      > & { address?: Address; chainId?: TChainId; functionName?: 'contribute' }
+    : UseContractWriteConfig<typeof quadraticABI, 'contribute', TMode> & {
         abi?: never
         address?: never
         chainId?: TChainId
-        functionName?: 'approve'
+        functionName?: 'contribute'
       } = {} as any,
 ) {
-  return useContractWrite<typeof wagmiMintExampleABI, 'approve', TMode>({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'approve',
+  return useContractWrite<typeof quadraticABI, 'contribute', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'contribute',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"renounceOwnership"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createPodiumRound"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleRenounceOwnership<
+export function useQuadraticCreatePodiumRound<
   TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
+  TChainId extends number = keyof typeof quadraticAddress,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'renounceOwnership'
+          typeof quadraticABI,
+          'createPodiumRound'
         >['request']['abi'],
-        'renounceOwnership',
+        'createPodiumRound',
         TMode
       > & {
         address?: Address
         chainId?: TChainId
-        functionName?: 'renounceOwnership'
+        functionName?: 'createPodiumRound'
       }
     : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        'renounceOwnership',
+        typeof quadraticABI,
+        'createPodiumRound',
         TMode
       > & {
         abi?: never
         address?: never
         chainId?: TChainId
-        functionName?: 'renounceOwnership'
+        functionName?: 'createPodiumRound'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'createPodiumRound', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createPodiumRound',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createProject"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticCreateProject<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'createProject'
+        >['request']['abi'],
+        'createProject',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'createProject'
+      }
+    : UseContractWriteConfig<typeof quadraticABI, 'createProject', TMode> & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'createProject'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'createProject', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createProject',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createRound"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticCreateRound<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'createRound'
+        >['request']['abi'],
+        'createRound',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'createRound'
+      }
+    : UseContractWriteConfig<typeof quadraticABI, 'createRound', TMode> & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'createRound'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'createRound', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createRound',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"deleteRound"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticDeleteRound<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'deleteRound'
+        >['request']['abi'],
+        'deleteRound',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'deleteRound'
+      }
+    : UseContractWriteConfig<typeof quadraticABI, 'deleteRound', TMode> & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'deleteRound'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'deleteRound', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'deleteRound',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"distributePodiumPrizes"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticDistributePodiumPrizes<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'distributePodiumPrizes'
+        >['request']['abi'],
+        'distributePodiumPrizes',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'distributePodiumPrizes'
+      }
+    : UseContractWriteConfig<
+        typeof quadraticABI,
+        'distributePodiumPrizes',
+        TMode
+      > & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'distributePodiumPrizes'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'distributePodiumPrizes', TMode>(
+    {
+      abi: quadraticABI,
+      address: quadraticAddress[80001],
+      functionName: 'distributePodiumPrizes',
+      ...config,
+    } as any,
+  )
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"podiumVote"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticPodiumVote<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'podiumVote'
+        >['request']['abi'],
+        'podiumVote',
+        TMode
+      > & { address?: Address; chainId?: TChainId; functionName?: 'podiumVote' }
+    : UseContractWriteConfig<typeof quadraticABI, 'podiumVote', TMode> & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'podiumVote'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'podiumVote', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'podiumVote',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"quadraticFunding"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticQuadraticFunding<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'quadraticFunding'
+        >['request']['abi'],
+        'quadraticFunding',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'quadraticFunding'
+      }
+    : UseContractWriteConfig<typeof quadraticABI, 'quadraticFunding', TMode> & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'quadraticFunding'
+      } = {} as any,
+) {
+  return useContractWrite<typeof quadraticABI, 'quadraticFunding', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'quadraticFunding',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"revokeWhitelistContributor"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function useQuadraticRevokeWhitelistContributor<
+  TMode extends WriteContractMode = undefined,
+  TChainId extends number = keyof typeof quadraticAddress,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof quadraticABI,
+          'revokeWhitelistContributor'
+        >['request']['abi'],
+        'revokeWhitelistContributor',
+        TMode
+      > & {
+        address?: Address
+        chainId?: TChainId
+        functionName?: 'revokeWhitelistContributor'
+      }
+    : UseContractWriteConfig<
+        typeof quadraticABI,
+        'revokeWhitelistContributor',
+        TMode
+      > & {
+        abi?: never
+        address?: never
+        chainId?: TChainId
+        functionName?: 'revokeWhitelistContributor'
       } = {} as any,
 ) {
   return useContractWrite<
-    typeof wagmiMintExampleABI,
-    'renounceOwnership',
+    typeof quadraticABI,
+    'revokeWhitelistContributor',
     TMode
   >({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'renounceOwnership',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'revokeWhitelistContributor',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"safeMint"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"uploadResults"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleSafeMint<
+export function useQuadraticUploadResults<
   TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
+  TChainId extends number = keyof typeof quadraticAddress,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'safeMint'
+          typeof quadraticABI,
+          'uploadResults'
         >['request']['abi'],
-        'safeMint',
-        TMode
-      > & { address?: Address; chainId?: TChainId; functionName?: 'safeMint' }
-    : UseContractWriteConfig<typeof wagmiMintExampleABI, 'safeMint', TMode> & {
-        abi?: never
-        address?: never
-        chainId?: TChainId
-        functionName?: 'safeMint'
-      } = {} as any,
-) {
-  return useContractWrite<typeof wagmiMintExampleABI, 'safeMint', TMode>({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'safeMint',
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"safeTransferFrom"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleSafeTransferFrom<
-  TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'safeTransferFrom'
-        >['request']['abi'],
-        'safeTransferFrom',
+        'uploadResults',
         TMode
       > & {
         address?: Address
         chainId?: TChainId
-        functionName?: 'safeTransferFrom'
+        functionName?: 'uploadResults'
       }
-    : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        'safeTransferFrom',
-        TMode
-      > & {
+    : UseContractWriteConfig<typeof quadraticABI, 'uploadResults', TMode> & {
         abi?: never
         address?: never
         chainId?: TChainId
-        functionName?: 'safeTransferFrom'
+        functionName?: 'uploadResults'
       } = {} as any,
 ) {
-  return useContractWrite<
-    typeof wagmiMintExampleABI,
-    'safeTransferFrom',
-    TMode
-  >({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'safeTransferFrom',
+  return useContractWrite<typeof quadraticABI, 'uploadResults', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'uploadResults',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"setApprovalForAll"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"whitelistContributor"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleSetApprovalForAll<
+export function useQuadraticWhitelistContributor<
   TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
+  TChainId extends number = keyof typeof quadraticAddress,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'setApprovalForAll'
+          typeof quadraticABI,
+          'whitelistContributor'
         >['request']['abi'],
-        'setApprovalForAll',
+        'whitelistContributor',
         TMode
       > & {
         address?: Address
         chainId?: TChainId
-        functionName?: 'setApprovalForAll'
+        functionName?: 'whitelistContributor'
       }
     : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        'setApprovalForAll',
+        typeof quadraticABI,
+        'whitelistContributor',
         TMode
       > & {
         abi?: never
         address?: never
         chainId?: TChainId
-        functionName?: 'setApprovalForAll'
+        functionName?: 'whitelistContributor'
       } = {} as any,
 ) {
-  return useContractWrite<
-    typeof wagmiMintExampleABI,
-    'setApprovalForAll',
-    TMode
-  >({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'setApprovalForAll',
+  return useContractWrite<typeof quadraticABI, 'whitelistContributor', TMode>({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'whitelistContributor',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"transferFrom"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function useWagmiMintExampleTransferFrom<
-  TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'transferFrom'
-        >['request']['abi'],
-        'transferFrom',
-        TMode
-      > & {
-        address?: Address
-        chainId?: TChainId
-        functionName?: 'transferFrom'
-      }
-    : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        'transferFrom',
-        TMode
-      > & {
-        abi?: never
-        address?: never
-        chainId?: TChainId
-        functionName?: 'transferFrom'
-      } = {} as any,
-) {
-  return useContractWrite<typeof wagmiMintExampleABI, 'transferFrom', TMode>({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'transferFrom',
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"transferOwnership"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleTransferOwnership<
-  TMode extends WriteContractMode = undefined,
-  TChainId extends number = keyof typeof wagmiMintExampleAddress,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof wagmiMintExampleABI,
-          'transferOwnership'
-        >['request']['abi'],
-        'transferOwnership',
-        TMode
-      > & {
-        address?: Address
-        chainId?: TChainId
-        functionName?: 'transferOwnership'
-      }
-    : UseContractWriteConfig<
-        typeof wagmiMintExampleABI,
-        'transferOwnership',
-        TMode
-      > & {
-        abi?: never
-        address?: never
-        chainId?: TChainId
-        functionName?: 'transferOwnership'
-      } = {} as any,
-) {
-  return useContractWrite<
-    typeof wagmiMintExampleABI,
-    'transferOwnership',
-    TMode
-  >({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'transferOwnership',
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function usePrepareWagmiMintExampleWrite<TFunctionName extends string>(
+export function usePrepareQuadraticWrite<TFunctionName extends string>(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, TFunctionName>,
+    UsePrepareContractWriteConfig<typeof quadraticABI, TFunctionName>,
     'abi' | 'address'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
     ...config,
-  } as UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, TFunctionName>)
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, TFunctionName>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"approve"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"contribute"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleApprove(
+export function usePrepareQuadraticContribute(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, 'approve'>,
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'contribute'>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'approve',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'contribute',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, 'approve'>)
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'contribute'>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"renounceOwnership"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createPodiumRound"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleRenounceOwnership(
+export function usePrepareQuadraticCreatePodiumRound(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'createPodiumRound'>,
+    'abi' | 'address' | 'functionName'
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createPodiumRound',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'createPodiumRound'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createProject"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function usePrepareQuadraticCreateProject(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'createProject'>,
+    'abi' | 'address' | 'functionName'
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createProject',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'createProject'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"createRound"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function usePrepareQuadraticCreateRound(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'createRound'>,
+    'abi' | 'address' | 'functionName'
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'createRound',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'createRound'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"deleteRound"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function usePrepareQuadraticDeleteRound(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'deleteRound'>,
+    'abi' | 'address' | 'functionName'
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'deleteRound',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'deleteRound'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"distributePodiumPrizes"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function usePrepareQuadraticDistributePodiumPrizes(
   config: Omit<
     UsePrepareContractWriteConfig<
-      typeof wagmiMintExampleABI,
-      'renounceOwnership'
+      typeof quadraticABI,
+      'distributePodiumPrizes'
     >,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'renounceOwnership',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'distributePodiumPrizes',
     ...config,
   } as UsePrepareContractWriteConfig<
-    typeof wagmiMintExampleABI,
-    'renounceOwnership'
+    typeof quadraticABI,
+    'distributePodiumPrizes'
   >)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"safeMint"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"podiumVote"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleSafeMint(
+export function usePrepareQuadraticPodiumVote(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, 'safeMint'>,
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'podiumVote'>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'safeMint',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'podiumVote',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, 'safeMint'>)
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'podiumVote'>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"safeTransferFrom"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"quadraticFunding"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleSafeTransferFrom(
+export function usePrepareQuadraticQuadraticFunding(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'quadraticFunding'>,
+    'abi' | 'address' | 'functionName'
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'quadraticFunding',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'quadraticFunding'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"revokeWhitelistContributor"`.
+ *
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
+ */
+export function usePrepareQuadraticRevokeWhitelistContributor(
   config: Omit<
     UsePrepareContractWriteConfig<
-      typeof wagmiMintExampleABI,
-      'safeTransferFrom'
+      typeof quadraticABI,
+      'revokeWhitelistContributor'
     >,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'safeTransferFrom',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'revokeWhitelistContributor',
     ...config,
   } as UsePrepareContractWriteConfig<
-    typeof wagmiMintExampleABI,
-    'safeTransferFrom'
+    typeof quadraticABI,
+    'revokeWhitelistContributor'
   >)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"setApprovalForAll"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"uploadResults"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleSetApprovalForAll(
+export function usePrepareQuadraticUploadResults(
   config: Omit<
-    UsePrepareContractWriteConfig<
-      typeof wagmiMintExampleABI,
-      'setApprovalForAll'
-    >,
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'uploadResults'>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'setApprovalForAll',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'uploadResults',
     ...config,
-  } as UsePrepareContractWriteConfig<
-    typeof wagmiMintExampleABI,
-    'setApprovalForAll'
-  >)
+  } as UsePrepareContractWriteConfig<typeof quadraticABI, 'uploadResults'>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"transferFrom"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link quadraticABI}__ and `functionName` set to `"whitelistContributor"`.
  *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
+ * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67)
  */
-export function usePrepareWagmiMintExampleTransferFrom(
+export function usePrepareQuadraticWhitelistContributor(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof wagmiMintExampleABI, 'transferFrom'>,
+    UsePrepareContractWriteConfig<typeof quadraticABI, 'whitelistContributor'>,
     'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
+  > & { chainId?: keyof typeof quadraticAddress } = {} as any,
 ) {
   return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'transferFrom',
+    abi: quadraticABI,
+    address: quadraticAddress[80001],
+    functionName: 'whitelistContributor',
     ...config,
   } as UsePrepareContractWriteConfig<
-    typeof wagmiMintExampleABI,
-    'transferFrom'
+    typeof quadraticABI,
+    'whitelistContributor'
   >)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `functionName` set to `"transferOwnership"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function usePrepareWagmiMintExampleTransferOwnership(
-  config: Omit<
-    UsePrepareContractWriteConfig<
-      typeof wagmiMintExampleABI,
-      'transferOwnership'
-    >,
-    'abi' | 'address' | 'functionName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    functionName: 'transferOwnership',
-    ...config,
-  } as UsePrepareContractWriteConfig<
-    typeof wagmiMintExampleABI,
-    'transferOwnership'
-  >)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleEvent<TEventName extends string>(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, TEventName>,
-    'abi' | 'address'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    ...config,
-  } as UseContractEventConfig<typeof wagmiMintExampleABI, TEventName>)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"Approval"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleApprovalEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'Approval'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'Approval',
-    ...config,
-  } as UseContractEventConfig<typeof wagmiMintExampleABI, 'Approval'>)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"ApprovalForAll"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleApprovalForAllEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'ApprovalForAll'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'ApprovalForAll',
-    ...config,
-  } as UseContractEventConfig<typeof wagmiMintExampleABI, 'ApprovalForAll'>)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"BatchMetadataUpdate"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleBatchMetadataUpdateEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'BatchMetadataUpdate'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'BatchMetadataUpdate',
-    ...config,
-  } as UseContractEventConfig<
-    typeof wagmiMintExampleABI,
-    'BatchMetadataUpdate'
-  >)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"MetadataUpdate"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleMetadataUpdateEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'MetadataUpdate'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'MetadataUpdate',
-    ...config,
-  } as UseContractEventConfig<typeof wagmiMintExampleABI, 'MetadataUpdate'>)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"OwnershipTransferred"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleOwnershipTransferredEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'OwnershipTransferred'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'OwnershipTransferred',
-    ...config,
-  } as UseContractEventConfig<
-    typeof wagmiMintExampleABI,
-    'OwnershipTransferred'
-  >)
-}
-
-/**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link wagmiMintExampleABI}__ and `eventName` set to `"Transfer"`.
- *
- * [__View Contract on Polygon Mumbai Polygon Scan__](https://mumbai.polygonscan.com/address/0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081)
- */
-export function useWagmiMintExampleTransferEvent(
-  config: Omit<
-    UseContractEventConfig<typeof wagmiMintExampleABI, 'Transfer'>,
-    'abi' | 'address' | 'eventName'
-  > & { chainId?: keyof typeof wagmiMintExampleAddress } = {} as any,
-) {
-  return useContractEvent({
-    abi: wagmiMintExampleABI,
-    address: wagmiMintExampleAddress[80001],
-    eventName: 'Transfer',
-    ...config,
-  } as UseContractEventConfig<typeof wagmiMintExampleABI, 'Transfer'>)
 }

@@ -13,6 +13,9 @@ import NcImage from "@/shared/NcImage/NcImage";
 import {CaptureModal} from "@/components/CaptureCamera/CampureCamera";
 import Link from "next/link";
 import {Web3Storage} from "web3.storage";
+import {quadraticABI, usePrepareQuadraticUploadResults, useQuadraticUploadResults} from "@/generated";
+import {useWaitForTransaction} from "wagmi";
+import {Connect} from "@/components/wagmi-wallet/Connect";
 
 const plans = [
   {
@@ -33,28 +36,37 @@ const plans = [
   },
 ];
 
+
 const PageUploadItem = ({}) => {
   const [selected, setSelected] = useState(plans[1]);
   const [isOpen, setIsOpen] = useState(false)
   const [cid, setCID] = useState('')
-  const [cidMetadata, setCidMetadata] = useState('')
+
+
+  const {config} = usePrepareQuadraticUploadResults({ args: [["hello"]]} as any)
+  const { data: writeData, write } = useQuadraticUploadResults(config)
+  const { isLoading, isSuccess, isFetching } = useWaitForTransaction({
+    hash: writeData?.hash,
+  } as any)
+
+
+  const [metadata, setMetadata] = useState('')
 
   const client = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDUwYjI5QTE1OTcwNEU1MDJmOUU4ODEyOTRhQTA2OTA0NTJFMEQ2QzUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTU1Mzc4OTgxNjQsIm5hbWUiOiJwYWRpdW0ifQ.OgTC0Jyiyxy90pW43qIfkKTwelrQC4UDcaMvzb0WIVQ' });
 
-
-  const link = `https://ipfs.io/ipfs/${cid}`
+  const link = (ipfsId: string)=> `https://ipfs.io/ipfs/${ipfsId}`
 
   useEffect(()=>{
 
     const useEffectAsync = async ()=> {
-        const obj = { location: 'new york, 🇺🇸', imageUrl: link }
+        const obj = { location: 'new york, 🇺🇸', imageUrl: link(cid) }
         const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' })
         const files = [
           new File(['contents-of-file-1'], 'plain-utf8.txt'),
           new File([blob as any], 'hello.json')
         ]
       const cidMetadata = await client.put(files, { wrapWithDirectory: false })
-      console.log("cidMetadata object", cidMetadata)
+
     }
     if(cid && cid.length > 0)  useEffectAsync()
   }, [cid])
@@ -81,9 +93,17 @@ const PageUploadItem = ({}) => {
               <h3 className="text-lg sm:text-2xl font-semibold">
                 Image, Video, Audio, or 3D Model
               </h3>
-              <ButtonPrimary onClick={()=> setIsOpen(true)}></ButtonPrimary>
+             <Connect />
+              <ButtonPrimary onClick={()=> setIsOpen(true)}>Take photo</ButtonPrimary>
+              <ButtonPrimary onClick={()=> {
+               console.log("test")
+               write?.()
+
+
+              }}>Upload</ButtonPrimary>
+
               {isOpen && <CaptureModal setIsOpen={setIsOpen} setCID={setCID}/>}
-              {cid && <Link href={link} className="text-sm text-green-600">
+              {cid && <Link href={link(cid)} className="text-sm text-green-600">
                 {`view image`}
               </Link>}
               <div className="mt-5 ">

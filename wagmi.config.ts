@@ -2,17 +2,17 @@ import { defineConfig } from '@wagmi/cli'
 import { react } from '@wagmi/cli/plugins'
 import * as chains from 'wagmi/chains'
 
-import { wagmiMintExampleAbi } from './abis/wagmiMintExampleAbi'
+import { quadraticABI } from './abis/quadraticABI'
 
 export default defineConfig(() => {
   return {
     out: "src/generated.ts",
     contracts: [
       {
-        abi: wagmiMintExampleAbi,
-        name: "WagmiMintExample",
+        abi: quadraticABI,
+        name: "Quadratic",
         address: {
-          [chains.polygonMumbai.id]: "0x2fb9F1630Fe4bFe5020Af336542E5cd1f7d88081",
+          [chains.polygonMumbai.id]: "0x84aFE7D82eE49D0cf581C50469CA54dda27E7C67",
         },
       },
     ],
