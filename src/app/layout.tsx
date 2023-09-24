@@ -6,6 +6,7 @@ import Footer from "@/shared/Footer/Footer";
 import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
 import SiteHeader from "@/app/SiteHeader";
 import {AccountAbstractionProvider} from "@/store/accountAbstractionContext";
+import {config} from "@/wagmi";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,11 +24,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
   return (
     <html lang="en" className={poppins.className}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <SiteHeader />
-        <AccountAbstractionProvider> {children}</AccountAbstractionProvider>
+        <WagmiConfig config={config}>  <AccountAbstractionProvider> {mounted && children}</AccountAbstractionProvider></WagmiConfig>
+
+
         <Footer />
         <MusicPlayer />
       </body>
