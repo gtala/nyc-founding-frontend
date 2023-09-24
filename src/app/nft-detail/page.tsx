@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import ItemTypeVideoIcon from "@/components/ItemTypeVideoIcon";
 import LikeButton from "@/components/LikeButton";
@@ -14,6 +15,10 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import TabDetail from "./TabDetail";
 import TimeCountDown from "./TimeCountDown";
 import Link from "next/link";
+
+const getSrc = ()=> {
+  return localStorage.getItem('ipfs-metadata')
+}
 
 const NftDetailPage = ({}) => {
   const renderSection1 = () => {
@@ -170,7 +175,7 @@ const NftDetailPage = ({}) => {
             {/* HEADING */}
             <div className="relative">
               <NcImage
-                src={nftsLargeImgs[0]}
+                src={getSrc() || nftsLargeImgs[0]}
                 containerClassName="aspect-w-11 aspect-h-12 rounded-3xl overflow-hidden z-0 relative"
                 fill
               />

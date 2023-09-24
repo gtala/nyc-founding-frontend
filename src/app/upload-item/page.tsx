@@ -66,9 +66,12 @@ const PageUploadItem = ({}) => {
           new File([blob as any], 'hello.json')
         ]
       const cidMetadata = await client.put(files, { wrapWithDirectory: false })
-
+      //localStorage.setItem('ipfs-metadata', link(cidMetadata))
     }
-    if(cid && cid.length > 0)  useEffectAsync()
+    if(cid && cid.length > 0) {
+      localStorage.setItem('ipfs-metadata', link(cid))
+      useEffectAsync()
+    }
   }, [cid])
 
   return (
