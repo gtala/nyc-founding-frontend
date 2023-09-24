@@ -31,14 +31,6 @@ function PageHome() {
 
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
 
-
-
-        <div className="relative py-20 lg:py-28">
-          <BackgroundSection />
-          <SectionSliderCollections2 cardStyle="style2" />
-        </div>
-
-
         <div className="relative py-20 lg:py-28">
           <BackgroundSection className="bg-neutral-100/70 dark:bg-black/20 " />
           <SectionGridFeatureNFT2 />
