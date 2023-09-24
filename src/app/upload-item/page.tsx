@@ -11,6 +11,7 @@ import { nftsImgs } from "@/contains/fakeData";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import NcImage from "@/shared/NcImage/NcImage";
 import {CaptureModal} from "@/components/CaptureCamera/CampureCamera";
+import Link from "next/link";
 
 const plans = [
   {
@@ -33,8 +34,11 @@ const plans = [
 
 const PageUploadItem = ({}) => {
   const [selected, setSelected] = useState(plans[1]);
+  const [isOpen, setIsOpen] = useState(false)
+  const [cid, setCID] = useState('')
 
-  const WebcamComponent = () => <Webcam />;
+
+  const link = `https://ipfs.io/ipfs/${cid}`
 
   return (
     <div className={`nc-PageUploadItem`}>
@@ -58,7 +62,11 @@ const PageUploadItem = ({}) => {
               <h3 className="text-lg sm:text-2xl font-semibold">
                 Image, Video, Audio, or 3D Model
               </h3>
-              <CaptureModal/>
+              <ButtonPrimary onClick={()=> setIsOpen(true)}></ButtonPrimary>
+              {isOpen && <CaptureModal setIsOpen={setIsOpen} setCID={setCID}/>}
+              {cid && <Link href={link} className="text-sm text-green-600">
+                {`view image`}
+              </Link>}
               <div className="mt-5 ">
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-xl">
                   <div className="space-y-1 text-center">

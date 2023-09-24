@@ -37,15 +37,14 @@ async function dataURLtoFile(dataurl: string, filename: string)  {
 
 export const CaptureModal = ({
                                  setIsOpen,
-                                 onPhotoTaken,
+                                 setCID,
                              }: {
     setIsOpen: (state: boolean) => void;
-    onPhotoTaken: (imageFile: File, width: number, height: number) => void;
+    setCID: (state: string) => void;
 }) => {
     const webcamRef = useRef(null);
 
-    const capture: MouseEventHandler = useCallback(
-        async (e) => {
+    const capture: MouseEventHandler = async (e) => {
             // @ts-expect-error: HACK
             const imageBase64 = webcamRef.current.getScreenshot();
             const cidIPFS = await dataURLtoFile(
@@ -53,12 +52,12 @@ export const CaptureModal = ({
                 `capture_${new Date().toISOString()}.jpeg`,
             );
 
-            console.log("cidIPFS", cidIPFS)
+            console.log("cidIPFS result", cidIPFS)
+            setCID(cidIPFS)
+            setIsOpen(false)
+         //   e.stopPropagation();
+        }
 
-            e.stopPropagation();
-        },
-        [webcamRef],
-    );
 
     return (
         <div className="fixed top-0 bottom-0 left-0 w-screen h-screen z-[9100] overflow-x-hidden overflow-y-scroll p-contentPadding bg-slate-900/30 backdrop-blur-sm">
@@ -91,7 +90,7 @@ export const CaptureModal = ({
                     <div className="absolute top-0 left-0 flex flex-col items-center justify-end w-full h-full">
                         <button
                             className="mb-6 bg-green-300 border-black rounded-full hover:text-white btn btn-lg btn-ghost hover:bg-green-900 hover:border-white"
-                            onClick={capture}
+                            onClick={async ()=> { await capture()}}
                         >
                             Capture Photo
                         </button>
