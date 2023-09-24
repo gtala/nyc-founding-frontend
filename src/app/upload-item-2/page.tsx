@@ -41,7 +41,7 @@ const PageUploadItem = ({}) => {
           {/* HEADING */}
           <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-4xl font-semibold">
-             Upload a Podium
+             Create a pool
             </h2>
             <span className="block mt-3 text-neutral-500 dark:text-neutral-400">
               You can set preferred display name, create your profile URL and
