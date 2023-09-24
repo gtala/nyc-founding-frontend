@@ -15,7 +15,7 @@ const SectionMagazine8: FC<SectionMagazine8Props> = ({ className = "" }) => {
         desc={"Click on music icon and enjoy NTF music or audio "}
         className="mb-14 text-neutral-900 dark:text-neutral-50"
       >
-        Listen NFTs audio live
+        Listen Campaigns audio live
       </Heading>
       <div className={`grid grid-cols-1 sm:grid-cols-6 gap-6 2xl:gap-8`}>
         <CardNFTMusic

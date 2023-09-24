@@ -98,8 +98,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 </div>
 
                 <span className="block mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-                  Punk #4786 / An OG Cryptopunk Collector, hoarder of NFTs.
-                  Contributing to @ether_cards, an NFT Monetization Platform.
+                  Punk #4786 / An OG Cryptopunk Collector, hoarder of Campaigns.
+                  Contributing to @ether_cards, an Campaign Monetization Platform.
                 </span>
               </div>
               <div className="mt-4 ">

@@ -17,7 +17,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
   className = "mb-12",
 }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [tabActive, setTabActive] = useState("All NFTs");
+  const [tabActive, setTabActive] = useState("All Campaigns");
 
   return (
     <div className={`flex flex-col relative ${className}`}>
@@ -27,7 +27,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
           className="sm:space-x-2"
           containerClassName="relative flex w-full overflow-x-auto text-sm md:text-base hiddenScrollbar"
         >
-          {["All NFTs", "Arts", "Music", "Sports", "Jewels"].map(
+          {["All Campaigns", "Arts", "Music", "Sports", "Jewels"].map(
             (item, index) => (
               <NavItem
                 key={index}

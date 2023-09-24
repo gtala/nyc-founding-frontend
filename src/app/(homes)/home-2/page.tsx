@@ -31,7 +31,7 @@ function PageHome() {
                   src={Vector1}
                   alt="Vector1"
                 />
-                <span className="relative">NFTs</span>
+                <span className="relative">Campaigns</span>
               </span>
             </span>
           }

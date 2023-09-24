@@ -148,7 +148,7 @@ const PageUploadItem = ({}) => {
 
             {/* ---- */}
             <FormItem label="Item Name">
-              <Input defaultValue="NFT name" />
+              <Input defaultValue="Campaign name" />
             </FormItem>
 
             {/* ---- */}
