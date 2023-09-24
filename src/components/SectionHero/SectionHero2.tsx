@@ -29,8 +29,8 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "", children }) => {
             Where would you like to help today
           </h2>
           <span className="text-base md:text-lg text-neutral-500 dark:text-neutral-400">
-            Discover the most outstanding NTFs in all topics of life. <br />{" "}
-            Creative your NTFs and sell them
+            Discover the most outstanding Campaigns in all topics of life. <br />{" "}
+            Creative your Campaigns and sell them
           </span>
 
 

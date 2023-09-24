@@ -30,7 +30,7 @@ const SectionSliderCardNftVideo: FC<SectionSliderCardNftVideoProps> = ({
           return (
             <Heading
               hasNextPrev
-              desc="Click on play icon and enjoy NTFs video"
+              desc="Click on play icon and enjoy Campaigns video"
               onClickPrev={onClickPrev}
               onClickNext={onClickNext}
               disableNext={!showNext}
