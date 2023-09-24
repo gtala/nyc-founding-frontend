@@ -8,9 +8,9 @@ import Textarea from "@/shared/Textarea/Textarea";
 import FormItem from "@/components/FormItem";
 import { RadioGroup } from "@headlessui/react";
 import { nftsImgs } from "@/contains/fakeData";
-import MySwitch from "@/components/MySwitch";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import NcImage from "@/shared/NcImage/NcImage";
+import {CaptureModal} from "@/components/CaptureCamera/CampureCamera";
 
 const plans = [
   {
@@ -34,6 +34,8 @@ const plans = [
 const PageUploadItem = ({}) => {
   const [selected, setSelected] = useState(plans[1]);
 
+  const WebcamComponent = () => <Webcam />;
+
   return (
     <div className={`nc-PageUploadItem`}>
       <div className="container">
@@ -56,10 +58,7 @@ const PageUploadItem = ({}) => {
               <h3 className="text-lg sm:text-2xl font-semibold">
                 Image, Video, Audio, or 3D Model
               </h3>
-              <span className="text-neutral-500 dark:text-neutral-400 text-sm">
-                File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV,
-                OGG, GLB, GLTF. Max size: 100 MB
-              </span>
+              <CaptureModal/>
               <div className="mt-5 ">
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-xl">
                   <div className="space-y-1 text-center">
