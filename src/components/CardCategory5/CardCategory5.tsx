@@ -54,11 +54,7 @@ const CardCategory5: FC<CardCategory5Props> = ({
           >
             {name}
           </h2>
-          <span
-            className={`block mt-1 text-sm text-neutral-6000 dark:text-neutral-400`}
-          >
-            1255 NFTs
-          </span>
+
         </div>
       </div>
     </Link>

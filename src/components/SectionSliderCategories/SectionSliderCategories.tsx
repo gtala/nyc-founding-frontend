@@ -13,18 +13,16 @@ export interface SectionSliderCategoriesProps {
 }
 
 const ntfsCatNames = [
-  "Arts",
-  "Entertainment",
-  "Music",
-  "News",
-  "Science",
-  "Sports",
-  "Technology",
+  "Oceans",
+  "Animals",
+  "Schools",
+  "Nature",
+  "Medicine"
 ];
 
 const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
-  heading = "Browse by category",
-  subHeading = "Explore the NFTs in the most featured categories.",
+  heading = "Categories",
+  subHeading = "",
   className = "",
 }) => {
   return (

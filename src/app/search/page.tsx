@@ -2,7 +2,6 @@ import React from "react";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
 import CardNFT from "@/components/CardNFT";
 import HeaderFilterSearchPage from "@/components/HeaderFilterSearchPage";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import SectionSliderCollections from "@/components/SectionSliderCollections";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -95,7 +94,6 @@ const PageSearch = ({}) => {
         </div>
 
         {/* SUBCRIBES */}
-        <SectionBecomeAnAuthor />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import SectionAds from "./SectionAds";
 import SectionMagazine5 from "./SectionMagazine5";
 import SectionLatestPosts from "./SectionLatestPosts";
 import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 
 // DEMO DATA
 
@@ -30,7 +29,6 @@ const BlogPage: React.FC = () => {
         </div>
 
         {/* === SECTION 1 === */}
-        <SectionBecomeAnAuthor className="pb-16 lg:pb-28" />
       </div>
     </div>
   );

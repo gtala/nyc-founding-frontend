@@ -10,8 +10,6 @@ import NftMoreDropdown from "@/components/NftMoreDropdown";
 import ButtonDropDownShare from "@/components/ButtonDropDownShare";
 import FollowButton from "@/components/FollowButton";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionGridAuthorBox from "@/components/SectionGridAuthorBox/SectionGridAuthorBox";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import ArchiveFilterListBox from "@/components/ArchiveFilterListBox";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -169,11 +167,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
         {/* === SECTION 5 === */}
         <div className="relative py-16 lg:py-28">
           <BackgroundSection />
-          <SectionGridAuthorBox data={Array.from("11111111")} boxCard="box4" />
         </div>
 
         {/* SUBCRIBES */}
-        <SectionBecomeAnAuthor />
       </div>
     </div>
   );

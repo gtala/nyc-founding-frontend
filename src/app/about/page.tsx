@@ -5,7 +5,6 @@ import SectionFounder from "./SectionFounder";
 import SectionStatistic from "./SectionStatistic";
 import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";
 import SectionHero from "./SectionHero";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import {useAccountAbstraction} from "@/store/accountAbstractionContext";
 import {graphServiceRKey} from "@/subgraphs/client";
 
@@ -33,7 +32,6 @@ const PageAbout = ({}) => {
         />
         <SectionFounder />
         <SectionStatistic />
-        <SectionBecomeAnAuthor />
       </div>
     </div>
   );

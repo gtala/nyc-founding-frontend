@@ -18,20 +18,17 @@ import nftsLarge1 from "@/images/nfts/large1.png";
 import nftsLarge2 from "@/images/nfts/large2.png";
 import nftsLarge3 from "@/images/nfts/large3.png";
 //
-import nftsCat1 from "@/images/nfts/cat1.png";
-import nftsCat2 from "@/images/nfts/cat2.png";
-import nftsCat3 from "@/images/nfts/cat3.png";
-import nftsCat4 from "@/images/nfts/cat4.png";
-import nftsCat5 from "@/images/nfts/cat5.png";
-import nftsCat6 from "@/images/nfts/cat6.png";
+import nftsCat1 from "@/images/nfts/1.png";
+import nftsCat2 from "@/images/nfts/2.png";
+import nftsCat3 from "@/images/nfts/3.png";
+import nftsCat4 from "@/images/nfts/4.png";
+
 
 export const nftsCatImgs = [
   nftsCat1,
   nftsCat3,
   nftsCat4,
-  nftsCat6,
   nftsCat2,
-  nftsCat5,
 ];
 export const nftsLargeImgs = [nftsLarge1, nftsLarge2, nftsLarge3];
 export const nftsImgs = [

@@ -5,7 +5,6 @@ import Input from "@/shared/Input/Input";
 import Textarea from "@/shared/Textarea/Textarea";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 
 const info = [
   {
@@ -87,7 +86,6 @@ const PageContact = ({}) => {
       <div className="container mb-24 lg:mb-32">
         <hr className="border-t border-neutral-200 dark:border-neutral-700 my-24 lg:my-32" />
 
-        <SectionBecomeAnAuthor />
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import collectionBanner from "@/images/nfts/collectionBanner.png";
 import { nftsImgs } from "@/contains/fakeData";
 import ButtonDropDownShare from "@/components/ButtonDropDownShare";
 import NftMoreDropdown from "@/components/NftMoreDropdown";
-import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
 import SectionSliderCollections from "@/components/SectionSliderCollections";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
@@ -201,7 +200,6 @@ const PageCollection = () => {
           <SectionSliderCollections />
         </div>
 
-        <SectionBecomeAnAuthor />
       </div>
     </div>
   );
