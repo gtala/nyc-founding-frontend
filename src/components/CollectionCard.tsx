@@ -38,7 +38,7 @@ const CollectionCard: FC<CollectionCardProps> = ({
         </div>
         {/* TITLE */}
         <h2 className="font-semibold text-3xl mt-1.5 text-white">
-          Awesome collection
+          Awesome Pool
         </h2>
         {/* LISTS */}
         <div className="grid grid-cols-3 gap-4 mt-5">

@@ -12,7 +12,6 @@ import SectionSubscribe2 from "@/components/SectionSubscribe2/SectionSubscribe2"
 import SectionGridFeatureNFT2 from "./SectionGridFeatureNFT2";
 import SectionSliderCategories from "@/components/SectionSliderCategories/SectionSliderCategories";
 import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
-import SectionVideos from "./SectionVideos";
 
 function PageHome() {
   return (
@@ -62,7 +61,6 @@ function PageHome() {
           <SectionSubscribe2 />
         </div>
 
-        <SectionVideos />
       </div>
     </div>
   );

@@ -204,21 +204,7 @@ const PageUploadItem = ({}) => {
             </div>
 
 
-            {/* ---- */}
-            <MySwitch enabled />
 
-            {/* ---- */}
-            <MySwitch
-              label="Instant sale price"
-              desc="Enter the price for which the item will be instantly sold"
-            />
-
-            {/* ---- */}
-            <MySwitch
-              enabled
-              label="Unlock once purchased"
-              desc="Content will be unlocked after successful transaction"
-            />
 
             {/* ---- */}
             <div className="pt-2 flex flex-col sm:flex-row space-y-3 sm:space-y-0 space-x-0 sm:space-x-3 ">

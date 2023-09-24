@@ -34,8 +34,6 @@ const NftSearchForm: FC<NftSearchFormProps> = ({
           onChange={(e) => setLocationInputValue(e)}
           className="flex-1 lg:flex-[1.5]"
         />
-        <ItemTypeSelect />
-        <PropertyTypeSelect />
         <PriceRangeInput />
       </form>
     );

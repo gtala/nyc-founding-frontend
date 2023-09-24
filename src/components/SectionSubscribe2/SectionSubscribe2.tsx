@@ -16,7 +16,7 @@ const SectionSubscribe2: FC<SectionSubscribe2Props> = ({ className = "" }) => {
       className={`nc-SectionSubscribe2 relative flex flex-col lg:flex-row lg:items-center ${className}`}
     >
       <div className="flex-shrink-0 mb-10 lg:mb-0 lg:mr-10 lg:w-2/5">
-        <h2 className="font-semibold text-4xl">Never miss a drop!</h2>
+        <h2 className="font-semibold text-4xl">Sign up to our waitlist!</h2>
         <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
           Subcribe to our super-exclusive drop list and be the first to know
           abour upcoming drops

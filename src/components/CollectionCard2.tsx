@@ -62,7 +62,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
       <div className="relative mt-5 ">
         {/* TITLE */}
         <h2 className="font-semibold text-2xl group-hover:text-primary-500 transition-colors">
-          Awesome collection
+          Awesome Pool
         </h2>
         {/* AUTHOR */}
         <div className="mt-2 flex justify-between">

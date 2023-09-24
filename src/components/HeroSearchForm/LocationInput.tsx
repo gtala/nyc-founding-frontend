@@ -21,7 +21,7 @@ const LocationInput: FC<LocationInputProps> = ({
   autoFocus = false,
   onChange,
   onInputDone,
-  placeHolder = "Seach NFTs",
+  placeHolder = "Seach Campaigns",
   desc = "What are you looking for?",
   className = "nc-flex-1.5",
 }) => {

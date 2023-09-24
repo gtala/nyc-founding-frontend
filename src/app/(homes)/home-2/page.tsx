@@ -11,7 +11,6 @@ import SectionSliderCollections from "@/components/SectionSliderCollections";
 import SectionGridFeatureNFT from "../SectionGridFeatureNFT";
 import SectionBecomeAnAuthor from "@/components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import SectionSliderCategories from "@/components/SectionSliderCategories/SectionSliderCategories";
-import SectionVideos from "../SectionVideos";
 
 function PageHome() {
   return (
@@ -64,7 +63,6 @@ function PageHome() {
 
         <SectionSliderCategories />
 
-        <SectionVideos />
       </div>
     </div>
   );
