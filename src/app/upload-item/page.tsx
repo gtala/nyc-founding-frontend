@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import Label from "@/components/Label/Label";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Input from "@/shared/Input/Input";
@@ -12,6 +12,7 @@ import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import NcImage from "@/shared/NcImage/NcImage";
 import {CaptureModal} from "@/components/CaptureCamera/CampureCamera";
 import Link from "next/link";
+import {Web3Storage} from "web3.storage";
 
 const plans = [
   {
@@ -36,9 +37,27 @@ const PageUploadItem = ({}) => {
   const [selected, setSelected] = useState(plans[1]);
   const [isOpen, setIsOpen] = useState(false)
   const [cid, setCID] = useState('')
+  const [cidMetadata, setCidMetadata] = useState('')
+
+  const client = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDUwYjI5QTE1OTcwNEU1MDJmOUU4ODEyOTRhQTA2OTA0NTJFMEQ2QzUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTU1Mzc4OTgxNjQsIm5hbWUiOiJwYWRpdW0ifQ.OgTC0Jyiyxy90pW43qIfkKTwelrQC4UDcaMvzb0WIVQ' });
 
 
   const link = `https://ipfs.io/ipfs/${cid}`
+
+  useEffect(()=>{
+
+    const useEffectAsync = async ()=> {
+        const obj = { location: 'new york, 🇺🇸', imageUrl: link }
+        const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' })
+        const files = [
+          new File(['contents-of-file-1'], 'plain-utf8.txt'),
+          new File([blob as any], 'hello.json')
+        ]
+      const cidMetadata = await client.put(files, { wrapWithDirectory: false })
+      console.log("cidMetadata object", cidMetadata)
+    }
+    if(cid && cid.length > 0)  useEffectAsync()
+  }, [cid])
 
   return (
     <div className={`nc-PageUploadItem`}>

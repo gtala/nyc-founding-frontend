@@ -52,7 +52,6 @@ export const CaptureModal = ({
                 `capture_${new Date().toISOString()}.jpeg`,
             );
 
-            console.log("cidIPFS result", cidIPFS)
             setCID(cidIPFS)
             setIsOpen(false)
          //   e.stopPropagation();
