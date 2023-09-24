@@ -1,6 +1,8 @@
 import type { MouseEventHandler } from "react";
 import { useCallback, useRef } from "react";
 import Webcam from "react-webcam";
+import {ThirdwebSDK} from "@thirdweb-dev/sdk";
+import {Web3Storage} from "web3.storage";
 
 
 const videoConstraints = {
@@ -10,8 +12,9 @@ const videoConstraints = {
 };
 
 
+const client = new Web3Storage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDUwYjI5QTE1OTcwNEU1MDJmOUU4ODEyOTRhQTA2OTA0NTJFMEQ2QzUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTU1Mzc4OTgxNjQsIm5hbWUiOiJwYWRpdW0ifQ.OgTC0Jyiyxy90pW43qIfkKTwelrQC4UDcaMvzb0WIVQ' });
 
-function dataURLtoFile(dataurl: string, filename: string) {
+async function dataURLtoFile(dataurl: string, filename: string)  {
     try {
         const arr = dataurl.split(",");
         //@ts-expect-error: We can be fairly certain this'll pass
@@ -24,11 +27,10 @@ function dataURLtoFile(dataurl: string, filename: string) {
         }
 
         const file = new File([u8arr], filename, { type: mime });
-
-        console.log({ file });
-      //  return result.ok(file);
+        const cid = await client.put([file], { wrapWithDirectory: false })
+       return cid
     } catch (err) {
-       // return result.fail(err as Error);
+       return ""
     }
 }
 
@@ -43,17 +45,17 @@ export const CaptureModal = ({
     const webcamRef = useRef(null);
 
     const capture: MouseEventHandler = useCallback(
-        (e) => {
+        async (e) => {
             // @ts-expect-error: HACK
             const imageBase64 = webcamRef.current.getScreenshot();
-            const fileResult = dataURLtoFile(
+            const cidIPFS = await dataURLtoFile(
                 imageBase64,
                 `capture_${new Date().toISOString()}.jpeg`,
             );
 
+            console.log("cidIPFS", cidIPFS)
+
             e.stopPropagation();
-
-
         },
         [webcamRef],
     );
